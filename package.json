@@ -1,0 +1,46 @@
+{
+  "name": "Discourse",
+  "version": "1.0.0",
+  "description": "A set of common discourse measures used in assessing speech production after stroke ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron app.js",
+    "build-mac": "electron-packager . --out=dist --platform=darwin --overwrite --tmpdir=false"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanayik/Discourse-Assessments.git"
+  },
+  "keywords": [
+    "speech",
+    "psychology",
+    "aphasia",
+    "test",
+    "language",
+    "stroke"
+  ],
+  "author": "Taylor Hanayik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hanayik/Discourse-Assessments/issues"
+  },
+  "homepage": "https://github.com/hanayik/Discourse-Assessments#readme",
+  "devDependencies": {
+    "app-root-dir": "^1.0.2",
+    "csvsync": "^1.0.1",
+    "electron": "^1.4.15",
+    "electron-packager": "^8.5.1",
+    "jQuery": "^1.7.4",
+    "moment": "^2.17.1",
+    "systeminformation": "^3.16.0"
+  },
+  "dependencies": {
+    "app-root-dir": "^1.0.2",
+    "csvsync": "^1.0.1",
+    "jQuery": "^1.7.4",
+    "moment": "^2.17.1",
+    "node-natural-sort": "^0.8.6",
+    "systeminformation": "^3.16.0"
+  }
+}

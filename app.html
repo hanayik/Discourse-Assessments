@@ -1,0 +1,48 @@
+<html>
+<head>
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+<body onload="openNav()">
+  <div id="containerDiv" class="container">
+    <div id="navPanel" class="nav">
+      <div class="menuBtn">
+        <span id="closeNavBtn" class="closebtn" onclick="toggleNav()"></span>
+      </div>
+      <div class="menuList">
+        <!-- <span id="pnt" onclick="loadJS(this.id)">PNT</span> -->
+        <form action="hideNav()">
+          <label for="subjID">Participant</label>
+          <input type="text" id="subjID" name="subjid" placeholder="0">
+
+          <label for="sessID">Session</label>
+          <input type="text" id="sessID" name="sessid" placeholder="0">
+
+          <label for="assessmentID">Assessment</label>
+          <select id="assessmentID" name="assessmentType">
+            <option value=""></option>
+            <option value="brokenWindow">Broken Window</option>
+            <option value="picnicScene">Picnic Scene</option>
+            <option value="pbj">Making a PBJ</option>
+            <option value="cinderellaStory">Cinderella Story</option>
+          </select>
+
+          <button type="button" onclick="getStarted()">Start</button>
+          <!-- <input type="submit" value="Start"> -->
+        </form>
+      </div>
+    </div>
+    <div id="contentDiv" class="content">
+      <!-- <img id="imageElement" src="./icons/icon-blue.png" alt="" /> -->
+      <!-- experiments/pnt/assets/pics/ambulance.png -->
+      <!-- <video id="videoElement" autoplay>
+        <source src="./experiments/phon/assets/video/airplane264.mp4" type="video/mp4">
+          Video loading failed :(
+      </video> -->
+    </div>
+  </div>
+  <script type="text/javascript" src="./js/lowLag.js"></script>
+  <script type="text/javascript" src="./core.js"></script>
+  <!-- <script type="text/javascript" src="./pnt.js"></script> -->
+  <script type="text/javascript" src="./menu.js"></script>
+</body>
+</html>
