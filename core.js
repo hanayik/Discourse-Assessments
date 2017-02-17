@@ -20,10 +20,17 @@ var sys = {
   isMacBook: false // need to detect if macbook for ffmpeg recording framerate value
 }
 //var instructions = "I'm going to ask you to name some pictures. When you hear a beep, a picture will appear on the computer screen. Your job is to name the picture using only one word. We'll practice several pictures before we begin"
-var brokenWindowInstructions = "broken window"
-var cinderellaStoryInstructions = "cinderella stroy"
-var pbjInstructions = "PBJ"
-var picnicSceneInstructions = "picnic scene"
+var brokenWindowInstructions = ["Take a little time to look at the following pictures. " +
+                                "They tell a story. Take a look at all of them and then I'll ask you " +
+                                " to tell me a story with a beginning, middle, and end. " +
+                                "You can look at the pictures as you tell the story."]
+var cinderellaStoryInstructions = ["I'm going to ask you to tell me a story. " +
+                                  "Have you ever hear the story of Cinderella? " +
+                                  "Do you remember much about it? " +
+                                  "The following pictures might remind you how it goes. " +
+                                  "Take a look at the pictures, and then tell me the story in your own words."]
+var pbjInstructions = ["Tell me how you would make a peanut butter and jelly sandwich. You can look a the picture as a guide."]
+var picnicSceneInstructions = "Please describe the following scene. Try to say as much as possible."
 var beepSound = path.join(__dirname, 'assets', 'beep.wav')
 var exp = new experiment('discourse')
 // construct a new ffmpeg recording object
