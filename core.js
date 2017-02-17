@@ -28,14 +28,26 @@ var beepSound = path.join(__dirname, 'assets', 'beep.wav')
 var exp = new experiment('discourse')
 // construct a new ffmpeg recording object
 var rec = new ff()
-var timeoutTime = 30 // in seconds
+var pbjTimeoutID
+var pbjTimeoutTime = 1000*60*5 // 1000ms * 60s * 5min
+var brokenWindowTimeoutID
+var brokenWindowTimeoutTime = 1000*60*5
+var picnicSceneTimeoutID
+var picnicSceneTimeoutTime = 1000*60*2
+var cinderellaTimeoutID
+var cinderellaTimeoutTime = 1000*60*5
 exp.getRootPath()
 exp.getMediaPath()
 var brokenWindowImg = path.resolve(exp.mediapath, 'brokenWindow.png')
+console.log(brokenWindowImg)
 var picnicSceneImg = path.resolve(exp.mediapath, 'picnic.jpg')
 var pbjImg = path.resolve(exp.mediapath, 'pbj.png')
 var cinderellaImgFolder = path.join(exp.mediapath, 'cinderellaImgs')
-cinderellaImgs = fs.readdirSync(cinderellaImgFolder).sort(naturalSort())
+var cinderellaImgs = fs.readdirSync(cinderellaImgFolder).sort(naturalSort())
+var maxNumCinderellaImgs = cinderellaImgs.length
+var cinderellaImgIdx = 0
+var cinderellaStartHasBeenClicked = false
+var cinderellaRecordingHasStarted = false
 var assessment = ''
 lowLag.init(); // init audio functions
 //console.log(cinderellaImgs)
@@ -120,7 +132,7 @@ function ff() {
   this.screenDeviceID = '1',           // macOS only
   this.videoSize = '1280x720',         // output video dimensions
   this.videoCodec = 'libx264',         // encoding codec
-  this.recQuality = '30',              //0-60 (0 = perfect quality but HUGE files)
+  this.recQuality = '20',              //0-60 (0 = perfect quality but HUGE files)
   this.preset = 'ultrafast',
   this.videoExt = '.mp4',
   // filter is for picture in picture effect
@@ -144,6 +156,15 @@ function ff() {
     }
     return sessID
   },
+  this.getAssessmentType = function () {
+    var assessmentType = document.getElementById("assessmentID").value
+    if (assessmentType === '') {
+      console.log ('assessment field is blank')
+      alert('Assessment field is blank!')
+    } else {
+      return assessmentType
+    }
+  },
   this.datestamp = getDateStamp(),
   this.makeOutputFolder = function () {
     outpath = path.join(app.getPath('userData'), 'video')
@@ -154,7 +175,7 @@ function ff() {
     return outpath
   }
   this.outputFilename = function() {
-    return path.join(this.makeOutputFolder(), this.getSubjID()+'_'+this.getSessID()+'_'+getDateStamp()+this.videoExt)
+    return path.join(this.makeOutputFolder(), this.getSubjID()+'_'+this.getSessID()+'_'+this.getAssessmentType()+'_'+getDateStamp()+this.videoExt)
   },
   this.getFramerate = function () {
     if (sys.isMacBook == true){
@@ -252,7 +273,7 @@ function clearScreen() {
 
 
 // show text instructions on screen
-function showInstructions(txt) {
+function showBrokenWindowInstructions(txt) {
   clearScreen()
   rec.startRec()
   var textDiv = document.createElement("div")
@@ -266,7 +287,7 @@ function showInstructions(txt) {
   var startBtn = document.createElement("button")
   var startBtnTxt = document.createTextNode("Start")
   startBtn.appendChild(startBtnTxt)
-  startBtn.onclick = showNextTrial
+  startBtn.onclick = showBrokenWindowImg
   btnDiv.appendChild(startBtn)
   content.appendChild(textDiv)
   content.appendChild(lineBreak)
@@ -275,14 +296,185 @@ function showInstructions(txt) {
 }
 
 
-// show single image on screen
-function showImage(imgPath) {
+
+function showPicnicSceneInstructions(txt) {
   clearScreen()
-  var imageEl = document.createElement("img")
-  imageEl.src = imgPath
-  content.appendChild(imageEl)
+  rec.startRec()
+  var textDiv = document.createElement("div")
+  textDiv.style.textAlign = 'center'
+  var p = document.createElement("p")
+  var txtNode = document.createTextNode(txt)
+  p.appendChild(txtNode)
+  textDiv.appendChild(p)
+  var lineBreak = document.createElement("br")
+  var btnDiv = document.createElement("div")
+  var startBtn = document.createElement("button")
+  var startBtnTxt = document.createTextNode("Start")
+  startBtn.appendChild(startBtnTxt)
+  startBtn.onclick = showPicnicSceneImg
+  btnDiv.appendChild(startBtn)
+  content.appendChild(textDiv)
+  content.appendChild(lineBreak)
+  content.appendChild(btnDiv)
   return getTime()
 }
+
+
+
+function showPbjInstructions(txt) {
+  clearScreen()
+  rec.startRec()
+  var textDiv = document.createElement("div")
+  textDiv.style.textAlign = 'center'
+  var p = document.createElement("p")
+  var txtNode = document.createTextNode(txt)
+  p.appendChild(txtNode)
+  textDiv.appendChild(p)
+  var lineBreak = document.createElement("br")
+  var btnDiv = document.createElement("div")
+  var startBtn = document.createElement("button")
+  var startBtnTxt = document.createTextNode("Start")
+  startBtn.appendChild(startBtnTxt)
+  startBtn.onclick = showPbjImg
+  btnDiv.appendChild(startBtn)
+  content.appendChild(textDiv)
+  content.appendChild(lineBreak)
+  content.appendChild(btnDiv)
+  return getTime()
+}
+
+
+
+function showCinderellaStoryInstructions(txt) {
+  clearScreen()
+  var textDiv = document.createElement("div")
+  textDiv.style.textAlign = 'center'
+  var p = document.createElement("p")
+  var txtNode = document.createTextNode(txt)
+  p.appendChild(txtNode)
+  textDiv.appendChild(p)
+  var lineBreak = document.createElement("br")
+  var btnDiv = document.createElement("div")
+  var startBtn = document.createElement("button")
+  var startBtnTxt = document.createTextNode("Start")
+  startBtn.appendChild(startBtnTxt)
+  startBtn.onclick = showCinderellaImg
+  btnDiv.appendChild(startBtn)
+  content.appendChild(textDiv)
+  content.appendChild(lineBreak)
+  content.appendChild(btnDiv)
+  return getTime()
+}
+
+
+
+function showPbjImg() {
+  clearScreen()
+  var imageEl = document.createElement("img")
+  imageEl.src = pbjImg
+  content.appendChild(imageEl)
+  clearTimeout(pbjTimeoutID)
+  pbjTimeoutID = setTimeout(clearScreenAndStopRecording, pbjTimeoutTime)
+  return getTime()
+}
+
+
+
+function showPicnicSceneImg() {
+  clearScreen()
+  var imageEl = document.createElement("img")
+  imageEl.src = picnicSceneImg
+  content.appendChild(imageEl)
+  clearTimeout(picnicSceneTimeoutID)
+  picnicSceneTimeoutID = setTimeout(clearScreenAndStopRecording, picnicSceneTimeoutTime)
+  return getTime()
+}
+
+
+
+function showBrokenWindowImg() {
+  clearScreen()
+  var imageEl = document.createElement("img")
+  imageEl.src = brokenWindowImg
+  content.appendChild(imageEl)
+  clearTimeout(brokenWindowTimeoutID)
+  brokenWindowTimeoutID = setTimeout(clearScreenAndStopRecording, brokenWindowTimeoutTime)
+  return getTime()
+}
+
+
+
+function showCinderellaImg() {
+  if (!cinderellaStartHasBeenClicked) {
+    cinderellaStartHasBeenClicked = true
+  }
+  clearScreen()
+  if (cinderellaImgIdx <= maxNumCinderellaImgs-1) {
+    var imageEl = document.createElement("img")
+    imageEl.src = path.join(cinderellaImgFolder, cinderellaImgs[cinderellaImgIdx])
+    content.appendChild(imageEl)
+    return getTime()
+  } else {
+    var textDiv = document.createElement("div")
+    textDiv.style.textAlign = 'center'
+    var p = document.createElement("p")
+    var txtNode = document.createTextNode("That was the last picture!")
+    p.appendChild(txtNode)
+    textDiv.appendChild(p)
+    var lineBreak = document.createElement("br")
+    var btnDiv = document.createElement("div")
+    var cinderellaBtn = document.createElement("button")
+    var cinderellaBtnTxt = document.createTextNode("Tell the story")
+    cinderellaBtn.appendChild(cinderellaBtnTxt)
+    cinderellaBtn.onclick = startCinderellaRecording
+    btnDiv.appendChild(cinderellaBtn)
+    content.appendChild(textDiv)
+    content.appendChild(lineBreak)
+    content.appendChild(btnDiv)
+  }
+}
+
+
+
+function startCinderellaRecording() {
+  clearScreen()
+  var textDiv = document.createElement("div")
+  textDiv.style.textAlign = 'center'
+  var p = document.createElement("p")
+  var txtNode = document.createTextNode("Tell the story of Cinderella without the pictures.")
+  p.appendChild(txtNode)
+  textDiv.appendChild(p)
+  var lineBreak = document.createElement("br")
+  var btnDiv = document.createElement("div")
+  var cinderellaFinishBtn = document.createElement("button")
+  var cinderellaFinishBtnTxt = document.createTextNode("Click to finish")
+  cinderellaFinishBtn.appendChild(cinderellaFinishBtnTxt)
+  cinderellaFinishBtn.onclick = stopRecordingAndShowNav
+  btnDiv.appendChild(cinderellaFinishBtn)
+  content.appendChild(textDiv)
+  content.appendChild(lineBreak)
+  content.appendChild(btnDiv)
+  stopWebCamPreview()
+  rec.startRec()
+  cinderellaRecordingHasStarted = true
+}
+
+
+
+function stopRecordingAndShowNav() {
+  clearScreen()
+  rec.stopRec()
+  openNav()
+}
+
+
+
+function clearScreenAndStopRecording() {
+  clearScreen()
+  rec.stopRec()
+  openNav()
+}
+
 
 
 // load experiment module js file. All experiments are written in js, no separate html file
@@ -405,10 +597,20 @@ function updateKeys() {
   keys.rt = 0
   console.log("key: " + keys.key)
   if (keys.key === 'ArrowRight') {
-    showNextTrial()
+    if (assessment === 'cinderellaStory') {
+      if (!cinderellaRecordingHasStarted) {
+        cinderellaImgIdx += 1
+        showCinderellaImg()
+      }
+    }
   }
   if (keys.key === 'ArrowLeft') {
-    showPreviousTrial()
+    if (assessment === 'cinderellaStory') {
+      if (!cinderellaRecordingHasStarted) {
+        cinderellaImgIdx -= 1
+        showCinderellaImg()
+      }
+    }
   }
 }
 
@@ -466,14 +668,13 @@ function checkForEscape() {
     // unloadJS(exp.name)
     clearScreen()
     rec.stopRec()
-    clearTimeout(trialTimeoutID)
   }
 }
 
 function getStarted() {
   var subjID = document.getElementById("subjID").value
   var sessID = document.getElementById("sessID").value
-  var assessment = document.getElementById("assessmentID").value
+  assessment = document.getElementById("assessmentID").value
   console.log("assessment chosen: ", assessment)
   if (subjID === '' || sessID === '' || assessment === '') {
     console.log ('subject and/or session is blank')
