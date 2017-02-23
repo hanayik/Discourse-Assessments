@@ -10,6 +10,9 @@ const ff = require('./camera/ffmpeg')
 const appRootDir = require('app-root-dir').get() //get the path of the application bundle
 const ffmpeg = appRootDir+'/ffmpeg/ffmpeg'
 const exec = require( 'child_process' ).exec
+const system = require('system-control')();
+const notifier = require('electron-notifications')
+app.setName('Discourse')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -36,6 +39,41 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  function checkForMaxBrightness() {
+    system.display.getBrightness().then(function(brightness) {
+      //console.log(brightness)
+      if (brightness < 1) {
+        // dialog.showMessageBox({ type: 'info', buttons: ['Adjust brightness for me', 'Cancel'], message: "Your screen seems a bit dim, would you like to set it to it's maximum setting? It's best to have it as bright as possible." }, function (buttonIndex) {
+        //   if (buttonIndex == 0) {
+        //     maxBrightness = 1
+        //     system.display.setBrightness(maxBrightness).then(function() {});
+        //   }
+        // });
+        // USE NOTIFICATIONS WHEN MY PR IS MERGED!
+        //
+        const notification = notifier.notify(app.getName(), {
+          message: "Your screen is dim.",
+          buttons: ['Illuminate', 'Cancel'],
+          duration: 20000
+        })
+        notification.on('buttonClicked', (text) => {
+          console.log(text)
+          if (text === 'Illuminate') {
+            console.log('Illuminate clicked!')
+            maxBrightness = 1
+            system.display.setBrightness(maxBrightness).then(function() {});
+          }
+          notification.close()
+        })
+        notification.on('clicked', () => {
+          notification.close()
+        })
+      }
+    });
+  }
+
+  checkForMaxBrightness()
 }
 
 // This method will be called when Electron has finished

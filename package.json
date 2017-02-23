@@ -38,9 +38,11 @@
   "dependencies": {
     "app-root-dir": "^1.0.2",
     "csvsync": "^1.0.1",
+    "electron-notifications": "^0.1.6",
     "jQuery": "^1.7.4",
     "moment": "^2.17.1",
     "node-natural-sort": "^0.8.6",
+    "system-control": "0.0.5",
     "systeminformation": "^3.16.0"
   }
 }
