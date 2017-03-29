@@ -216,13 +216,13 @@ function ff() {
     console.log('ffmpeg cmd: ')
     console.log(cmd)
     this.isRecording = true
-    exec(cmd, (error, stdout, stderr) => {
+    exec(cmd,{maxBuffer: 2000 * 1024}, (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`)
         return
       }
       // console.log(`stdout: ${stdout}`);
-      // console.log(`stderr: ${stderr}`);
+       console.log(`stderr: ${stderr}`);
     })
   },
   this.stopRec = function () {

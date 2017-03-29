@@ -1,12 +1,14 @@
 {
   "name": "Discourse",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A set of common discourse measures used in assessing speech production after stroke ",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron app.js",
-    "build-mac": "electron-packager . --out=dist --icon ./icon.icns --platform=darwin --overwrite --tmpdir=false"
+    "build-mac": "electron-packager . --out=dist --icon ./icon.icns --platform=darwin --overwrite --tmpdir=false",
+    "osx-sign": "codesign --deep --force --verbose --sign 'PLJK232T8G' ./dist/Discourse-darwin-x64/Discourse.app",
+    "startAppWithLogging": "./dist/Discourse-darwin-x64/Discourse.app/Contents/MacOS/Discourse"
   },
   "repository": {
     "type": "git",
