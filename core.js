@@ -10,8 +10,7 @@ const ffmpeg = appRootDir+'/ffmpeg/ffmpeg'
 const exec = require( 'child_process' ).exec
 const si = require('systeminformation');
 const naturalSort = require('node-natural-sort')
-var userDataPath = app.getPath('videos');
-console.log('user path: ', userDataPath)
+const mkdirp = require('mkdirp');
 var moment = require('moment')
 var content = document.getElementById("contentDiv")
 var localMediaStream
@@ -57,13 +56,38 @@ var cinderellaStartHasBeenClicked = false
 var cinderellaRecordingHasStarted = false
 var assessment = ''
 lowLag.init(); // init audio functions
-//console.log(cinderellaImgs)
+var userDataPath = path.join(app.getPath('userData'),'Data')
+makeSureUserDataFolderIsThere()
+var savePath
 
 
 
 
 
 
+
+
+function getSubjID() {
+  var subjID = document.getElementById("subjID").value
+  if (subjID === '') {
+    subjID = '0'
+  }
+  return subjID
+}
+
+function getSessID() {
+  var sessID = document.getElementById("sessID").value
+  if (sessID === '') {
+    sessID = '0'
+  }
+  return sessID
+}
+
+function makeSureUserDataFolderIsThere() {
+  if (!fs.existsSync(userDataPath)) {
+    fs.mkdirSync(userDataPath)
+  }
+}
 
 
 //camera preview on
@@ -174,10 +198,9 @@ function ff() {
   },
   this.datestamp = getDateStamp(),
   this.makeOutputFolder = function () {
-    outpath = path.join(app.getPath('userData'), 'video')
-    //fs.mkdirSync(path.join(app.getPath('userData'), 'video'))
+    outpath = path.join(savePath, 'PolarData', this.getAssessmentType(), getSubjID(), getSessID())
     if (!fs.existsSync(outpath)) {
-      fs.mkdirSync(outpath)
+      mkdirp.sync(outpath)
     }
     return outpath
   }
@@ -233,9 +256,9 @@ function ff() {
 
 // open data folder in finder
 function openDataFolder() {
-  dataFolder = path.join(app.getPath('userData'), 'video')
+  dataFolder = savePath
   if (!fs.existsSync(dataFolder)) {
-    fs.mkdirSync(dataFolder)
+    mkdirp.sync(dataFolder)
   }
   shell.showItemInFolder(dataFolder)
 }
@@ -748,7 +771,3 @@ function showPreviousTrial() {
 // event listeners that are active for the life of the application
 document.addEventListener('keyup', checkForEscape)
 document.addEventListener('keyup', updateKeys)
-// document.getElementById("videoElement").style.visibility = "hidden"
-// document.getElementById("textElement").style.visibility = "hidden"
-// document.getElementById("audioElement").style.visibility = "hidden"
-// document.getElementById("buttonElement").style.visibility = "hidden"
