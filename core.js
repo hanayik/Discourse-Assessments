@@ -630,6 +630,9 @@ function updateKeys() {
     if (assessment === 'cinderellaStory') {
       if (!cinderellaRecordingHasStarted) {
         cinderellaImgIdx += 1
+        if (cinderellaImgIdx > maxNumCinderellaImgs) {
+          cinderellaImgIdx = maxNumCinderellaImgs
+        }
         showCinderellaImg()
       }
     }
@@ -638,6 +641,9 @@ function updateKeys() {
     if (assessment === 'cinderellaStory') {
       if (!cinderellaRecordingHasStarted) {
         cinderellaImgIdx -= 1
+        if (cinderellaImgIdx < 0) {
+          cinderellaImgIdx = 0
+        }
         showCinderellaImg()
       }
     }
@@ -693,6 +699,8 @@ function checkForEscape() {
   key = event.key
   if (key === "Escape" || key=== "q") {
     console.log("Escape was pressed")
+    cinderellaImgIdx = 0
+    cinderellaRecordingHasStarted = false
     openNav()
     nav.hidden = false
     // unloadJS(exp.name)
