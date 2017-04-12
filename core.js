@@ -8,9 +8,9 @@ const {app} = require('electron').remote;
 const appRootDir = require('app-root-dir').get() //get the path of the application bundle
 const ffmpeg = appRootDir+'/ffmpeg/ffmpeg'
 const exec = require( 'child_process' ).exec
-const si = require('systeminformation');
+const si = require('systeminformation')
 const naturalSort = require('node-natural-sort')
-const mkdirp = require('mkdirp');
+const mkdirp = require('mkdirp')
 var moment = require('moment')
 var content = document.getElementById("contentDiv")
 var localMediaStream
@@ -35,13 +35,13 @@ var exp = new experiment('discourse')
 // construct a new ffmpeg recording object
 var rec = new ff()
 var pbjTimeoutID
-var pbjTimeoutTime = 1000*60*5 // 1000ms * 60s * 5min
+var pbjTimeoutTime = 1000 * 60 * 5 // 1000ms * 60s * 5min
 var brokenWindowTimeoutID
-var brokenWindowTimeoutTime = 1000*60*5
+var brokenWindowTimeoutTime = 1000 * 60 * 5
 var picnicSceneTimeoutID
-var picnicSceneTimeoutTime = 1000*60*2
+var picnicSceneTimeoutTime = 1000 * 60 * 2
 var cinderellaTimeoutID
-var cinderellaTimeoutTime = 1000*60*5
+var cinderellaTimeoutTime = 1000 * 60 * 5
 exp.getRootPath()
 exp.getMediaPath()
 var brokenWindowImg = path.resolve(exp.mediapath, 'brokenWindow.png')
