@@ -193,6 +193,7 @@ function ff() {
       console.log ('assessment field is blank')
       alert('Assessment field is blank!')
     } else {
+      console.log("assessment is: ", assessmentType)
       return assessmentType
     }
   },
@@ -627,7 +628,7 @@ function updateKeys() {
   keys.rt = 0
   console.log("key: " + keys.key)
   if (keys.key === 'ArrowRight') {
-    if (assessment === 'cinderellaStory') {
+    if (assessment === 'Cinderella') {
       if (!cinderellaRecordingHasStarted) {
         cinderellaImgIdx += 1
         if (cinderellaImgIdx > maxNumCinderellaImgs) {
@@ -638,7 +639,7 @@ function updateKeys() {
     }
   }
   if (keys.key === 'ArrowLeft') {
-    if (assessment === 'cinderellaStory') {
+    if (assessment === 'Cinderella') {
       if (!cinderellaRecordingHasStarted) {
         cinderellaImgIdx -= 1
         if (cinderellaImgIdx < 0) {
@@ -722,13 +723,13 @@ function getStarted() {
     console.log('session is: ', sessID)
     stopWebCamPreview()
     closeNav()
-    if (assessment === 'brokenWindow') {
+    if (assessment === 'BrokenWindow') {
       showBrokenWindowInstructions(brokenWindowInstructions)
-    } else if (assessment === 'picnicScene') {
+    } else if (assessment === 'PicD') {
       showPicnicSceneInstructions(picnicSceneInstructions)
-    } else if (assessment === 'pbj') {
+    } else if (assessment === 'PBJ') {
       showPbjInstructions(pbjInstructions)
-    } else if (assessment === 'cinderellaStory') {
+    } else if (assessment === 'Cinderella') {
       showCinderellaStoryInstructions(cinderellaStoryInstructions)
     }
     //showInstructions(instructions)
