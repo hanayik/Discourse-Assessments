@@ -27,21 +27,21 @@ var cinderellaStoryInstructions = ["I'm going to ask you to tell me a story. " +
                                   "Have you ever hear the story of Cinderella? " +
                                   "Do you remember much about it? " +
                                   "The following pictures might remind you how it goes. " +
-                                  "Take a look at the pictures, and then tell me the story in your own words."]
-var pbjInstructions = ["Tell me how you would make a peanut butter and jelly sandwich. You can look a the picture as a guide."]
+                                  "Take a look at all the pictures first, then once you have finished I will ask you to retell the story in your own words."]
+var pbjInstructions = ["Tell me how you would make a peanut butter and jelly sandwich. You can look at the picture as a guide."]
 var picnicSceneInstructions = "Please describe the following scene. Try to say as much as possible."
 var beepSound = path.join(__dirname, 'assets', 'beep.wav')
 var exp = new experiment('discourse')
 // construct a new ffmpeg recording object
 var rec = new ff()
 var pbjTimeoutID
-var pbjTimeoutTime = 1000 * 60 * 5 // 1000ms * 60s * 5min
+var pbjTimeoutTime = 1000 * 60 * 10 // 1000ms * 60s * 5min
 var brokenWindowTimeoutID
-var brokenWindowTimeoutTime = 1000 * 60 * 5
+var brokenWindowTimeoutTime = 1000 * 60 * 10
 var picnicSceneTimeoutID
-var picnicSceneTimeoutTime = 1000 * 60 * 2
+var picnicSceneTimeoutTime = 1000 * 60 * 10
 var cinderellaTimeoutID
-var cinderellaTimeoutTime = 1000 * 60 * 5
+var cinderellaTimeoutTime = 1000 * 60 * 30
 exp.getRootPath()
 exp.getMediaPath()
 var brokenWindowImg = path.resolve(exp.mediapath, 'brokenWindow.png')
