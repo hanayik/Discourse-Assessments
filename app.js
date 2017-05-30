@@ -117,7 +117,7 @@ autoUpdater.on('checking-for-update', function(){
 autoUpdater.on('update-available', function(){
   console.log('update available, downloading now')
   const availableNotification = notifier.notify('', {
-    message: "Update available. Downloading in the background now",
+    message: "Update available!",
     buttons: ['Ok'],
     duration: 4000,
     icon: path.join(__dirname, 'icon.png')
