@@ -35,13 +35,13 @@ var exp = new experiment('discourse')
 // construct a new ffmpeg recording object
 var rec = new ff()
 var pbjTimeoutID
-var pbjTimeoutTime = 1000 * 60 * 10 // 1000ms * 60s * 5min
+var pbjTimeoutTime = 1000 * 60 * 60 // ms * s * min
 var brokenWindowTimeoutID
-var brokenWindowTimeoutTime = 1000 * 60 * 10
+var brokenWindowTimeoutTime = 1000 * 60 * 60
 var picnicSceneTimeoutID
-var picnicSceneTimeoutTime = 1000 * 60 * 10
+var picnicSceneTimeoutTime = 1000 * 60 * 60
 var cinderellaTimeoutID
-var cinderellaTimeoutTime = 1000 * 60 * 30
+var cinderellaTimeoutTime = 1000 * 60 * 60
 exp.getRootPath()
 exp.getMediaPath()
 var brokenWindowImg = path.resolve(exp.mediapath, 'brokenWindow.png')
@@ -389,7 +389,10 @@ function showCinderellaStoryInstructions(txt) {
   var startBtn = document.createElement("button")
   var startBtnTxt = document.createTextNode("Start")
   startBtn.appendChild(startBtnTxt)
-  startBtn.onclick = showCinderellaImg
+  startBtn.onclick = function () {
+    cinderellaTimeoutID = setTimeout(clearScreenAndStopRecording, cinderellaTimeoutTime)
+    showCinderellaImg()
+  }
   btnDiv.appendChild(startBtn)
   content.appendChild(textDiv)
   content.appendChild(lineBreak)
@@ -491,6 +494,14 @@ function startCinderellaRecording() {
 }
 
 
+function clearAllTimeouts() {
+  clearTimeout(picnicSceneTimeoutID)
+  clearTimeout(brokenWindowTimeoutID)
+  clearTimeout(pbjTimeoutID)
+  clearTimeout(cinderellaTimeoutID)
+}
+
+
 
 function stopRecordingAndShowNav() {
   clearScreen()
@@ -504,6 +515,7 @@ function clearScreenAndStopRecording() {
   clearScreen()
   rec.stopRec()
   openNav()
+  clearAllTimeouts()
 }
 
 
@@ -700,6 +712,7 @@ function checkForEscape() {
   key = event.key
   if (key === "Escape" || key=== "q") {
     console.log("Escape was pressed")
+    clearAllTimeouts()
     cinderellaImgIdx = 0
     cinderellaRecordingHasStarted = false
     openNav()
@@ -723,6 +736,7 @@ function getStarted() {
     console.log('session is: ', sessID)
     stopWebCamPreview()
     closeNav()
+    clearAllTimeouts()
     if (assessment === 'BrokenWindow') {
       showBrokenWindowInstructions(brokenWindowInstructions)
     } else if (assessment === 'PicD') {
