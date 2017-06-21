@@ -19,17 +19,18 @@ var sys = {
   isMacBook: false // need to detect if macbook for ffmpeg recording framerate value
 }
 //var instructions = "I'm going to ask you to name some pictures. When you hear a beep, a picture will appear on the computer screen. Your job is to name the picture using only one word. We'll practice several pictures before we begin"
-var brokenWindowInstructions = ["Take a little time to look at the following pictures. " +
-                                "They tell a story. Take a look at all of them and then I'll ask you " +
-                                " to tell me a story with a beginning, middle, and end. " +
-                                "You can look at the pictures as you tell the story."]
-var cinderellaStoryInstructions = ["I'm going to ask you to tell me a story. " +
-                                  "Have you ever hear the story of Cinderella? " +
-                                  "Do you remember much about it? " +
-                                  "The following pictures might remind you how it goes. " +
-                                  "Take a look at all the pictures first, then once you have finished I will ask you to retell the story in your own words."]
-var pbjInstructions = ["Tell me how you would make a peanut butter and jelly sandwich. You can look at the picture as a guide."]
-var picnicSceneInstructions = "Please describe the following scene. Try to say as much as possible."
+var brokenWindowInstructions = ["<h1>Take a little time to look at the following pictures. <br>" +
+                                "They tell a story. Take a look at all of them and then I'll ask you <br>" +
+                                " to tell me a story with a beginning, middle, and end. <br>" +
+                                "You can look at the pictures as you tell the story. </h1>"]
+var cinderellaStoryInstructions = ["<h1>I'm going to ask you to tell me a story. <br>" +
+                                  "Have you ever heard the story of Cinderella? <br>" +
+                                  "Do you remember much about it? <br>" +
+                                  "The following pictures might remind you how it goes. <br>" +
+                                  "Take a look at all the pictures first, then once you have finished I will ask you to retell the story in your own words. </h1>"]
+var pbjInstructions = ["<h1>Tell me how you would make a peanut butter and jelly sandwich. <br>" +
+                      "You can look at the picture as a guide. </h1>"]
+var picnicSceneInstructions = "<h1>Please describe the following scene. Try to say as much as possible.</h1>"
 var beepSound = path.join(__dirname, 'assets', 'beep.wav')
 var exp = new experiment('discourse')
 // construct a new ffmpeg recording object
@@ -310,8 +311,9 @@ function showBrokenWindowInstructions(txt) {
   var textDiv = document.createElement("div")
   textDiv.style.textAlign = 'center'
   var p = document.createElement("p")
-  var txtNode = document.createTextNode(txt)
-  p.appendChild(txtNode)
+  //var txtNode = document.createTextNode(txt)
+  //p.appendChild(txtNode)
+  p.innerHTML = txt
   textDiv.appendChild(p)
   var lineBreak = document.createElement("br")
   var btnDiv = document.createElement("div")
@@ -334,8 +336,9 @@ function showPicnicSceneInstructions(txt) {
   var textDiv = document.createElement("div")
   textDiv.style.textAlign = 'center'
   var p = document.createElement("p")
-  var txtNode = document.createTextNode(txt)
-  p.appendChild(txtNode)
+  //var txtNode = document.createTextNode(txt)
+  //p.appendChild(txtNode)
+  p.innerHTML = txt
   textDiv.appendChild(p)
   var lineBreak = document.createElement("br")
   var btnDiv = document.createElement("div")
@@ -358,8 +361,9 @@ function showPbjInstructions(txt) {
   var textDiv = document.createElement("div")
   textDiv.style.textAlign = 'center'
   var p = document.createElement("p")
-  var txtNode = document.createTextNode(txt)
-  p.appendChild(txtNode)
+  //var txtNode = document.createTextNode(txt)
+  //p.appendChild(txtNode)
+  p.innerHTML = txt
   textDiv.appendChild(p)
   var lineBreak = document.createElement("br")
   var btnDiv = document.createElement("div")
@@ -381,8 +385,9 @@ function showCinderellaStoryInstructions(txt) {
   var textDiv = document.createElement("div")
   textDiv.style.textAlign = 'center'
   var p = document.createElement("p")
-  var txtNode = document.createTextNode(txt)
-  p.appendChild(txtNode)
+  //var txtNode = document.createTextNode(txt)
+  //p.appendChild(txtNode)
+  p.innerHTML = txt
   textDiv.appendChild(p)
   var lineBreak = document.createElement("br")
   var btnDiv = document.createElement("div")
