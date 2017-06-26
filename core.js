@@ -236,7 +236,7 @@ function ff() {
       ' -preset ultrafast' +
       ' -filter_complex ' + this.filter +
       ' -r ' + this.getFramerate().toString() +
-      ' ' + '"' + this.outputFilename() + '"'
+      ' -movflags +faststart ' + '"' + this.outputFilename() + '"'
     ]
     console.log('ffmpeg cmd: ')
     console.log(cmd)
@@ -320,6 +320,7 @@ function showBrokenWindowInstructions(txt) {
   var startBtn = document.createElement("button")
   var startBtnTxt = document.createTextNode("Start")
   startBtn.appendChild(startBtnTxt)
+  startBtn.className = 'startBtn'
   startBtn.onclick = showBrokenWindowImg
   btnDiv.appendChild(startBtn)
   content.appendChild(textDiv)
@@ -345,6 +346,7 @@ function showPicnicSceneInstructions(txt) {
   var startBtn = document.createElement("button")
   var startBtnTxt = document.createTextNode("Start")
   startBtn.appendChild(startBtnTxt)
+  startBtn.className = 'startBtn'
   startBtn.onclick = showPicnicSceneImg
   btnDiv.appendChild(startBtn)
   content.appendChild(textDiv)
@@ -370,6 +372,7 @@ function showPbjInstructions(txt) {
   var startBtn = document.createElement("button")
   var startBtnTxt = document.createTextNode("Start")
   startBtn.appendChild(startBtnTxt)
+  startBtn.className = 'startBtn'
   startBtn.onclick = showPbjImg
   btnDiv.appendChild(startBtn)
   content.appendChild(textDiv)
@@ -394,6 +397,7 @@ function showCinderellaStoryInstructions(txt) {
   var startBtn = document.createElement("button")
   var startBtnTxt = document.createTextNode("Start")
   startBtn.appendChild(startBtnTxt)
+  startBtn.className = 'startBtn'
   startBtn.onclick = function () {
     cinderellaTimeoutID = setTimeout(clearScreenAndStopRecording, cinderellaTimeoutTime)
     showCinderellaImg()
