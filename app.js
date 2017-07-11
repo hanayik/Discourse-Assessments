@@ -17,6 +17,8 @@ const autoUpdater = electron.autoUpdater
 var platform = os.platform() + '_' + os.arch();
 var version = app.getVersion();
 var updateResponse
+var ipcMain = require('electron').ipcMain;
+var shouldShowMessageNow = false
 app.setName('Discourse')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -108,6 +110,12 @@ app.on('activate', function () {
   }
 })
 
+ipcMain.on('user-requests-update', function() {
+  shouldShowMessageNow = true
+  console.log('user requested an update check')
+  autoUpdater.checkForUpdates()
+})
+
 
 autoUpdater.on('error', function(err) {
   console.log(err)
@@ -134,6 +142,19 @@ autoUpdater.on('update-available', function(){
 })
 autoUpdater.on('update-not-available', function(){
   console.log('update not available')
+  if (shouldShowMessageNow) {
+    var dialogOptions = {
+      type: "info",
+      buttons: ["Ok"],
+      defaultId: 0,
+      title: "No update available",
+      message: "There are no updates available. You have the most recent version!",
+      cancelId: 0
+    }
+    dialog.showMessageBox(mainWindow, dialogOptions , function (response) {
+
+    })
+}
 })
 autoUpdater.on('update-downloaded', function(){
   if (updateResponse == 1) {
