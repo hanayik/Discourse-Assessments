@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron app.js",
     "build-mac": "electron-packager . --out=dist --icon ./icon.icns --platform=darwin --overwrite --tmpdir=false",
-    "osx-sign": "codesign --deep --force --verbose --sign 'PLJK232T8G' ./dist/Discourse-darwin-x64/Discourse.app",
+    "osx-sign": "codesign --deep --force --verbose -s 'Developer ID Application: Taylor Hanayik' ./dist/Discourse-darwin-x64/Discourse.app",
     "startAppWithLogging": "./dist/Discourse-darwin-x64/Discourse.app/Contents/MacOS/Discourse"
   },
   "repository": {
