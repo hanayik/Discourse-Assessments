@@ -81,7 +81,7 @@ function checkForUpdateFromRender() {
 
 
 function getSubjID() {
-  var subjID = document.getElementById("subjID").value
+  var subjID = document.getElementById("subjID").value.trim()
   if (subjID === '') {
     subjID = '0'
   }
@@ -89,7 +89,7 @@ function getSubjID() {
 }
 
 function getSessID() {
-  var sessID = document.getElementById("sessID").value
+  var sessID = document.getElementById("sessID").value.trim()
   if (sessID === '') {
     sessID = '0'
   }
@@ -183,7 +183,7 @@ function ff() {
   this.filter = '"[0]scale=iw/8:ih/8 [pip]; [1][pip] overlay=main_w-overlay_w-10:main_h-overlay_h-10"',
   this.isRecording = false,
   this.getSubjID = function() {
-    var subjID = document.getElementById("subjID").value
+    var subjID = document.getElementById("subjID").value.trim()
     if (subjID === '') {
       console.log ('subject is blank')
       alert('Participant field is blank!')
@@ -192,7 +192,7 @@ function ff() {
     return subjID
   },
   this.getSessID = function () {
-    var sessID = document.getElementById("sessID").value
+    var sessID = document.getElementById("sessID").value.trim()
     if (sessID === '') {
       console.log ('session is blank')
       alert('Session field is blank!')
@@ -201,7 +201,7 @@ function ff() {
     return sessID
   },
   this.getAssessmentType = function () {
-    var assessmentType = document.getElementById("assessmentID").value
+    var assessmentType = document.getElementById("assessmentID").value.trim()
     if (assessmentType === '') {
       console.log ('assessment field is blank')
       alert('Assessment field is blank!')
@@ -746,9 +746,9 @@ function checkForEscape() {
 }
 
 function getStarted() {
-  var subjID = document.getElementById("subjID").value
-  var sessID = document.getElementById("sessID").value
-  assessment = document.getElementById("assessmentID").value
+  var subjID = document.getElementById("subjID").value.trim()
+  var sessID = document.getElementById("sessID").value.trim()
+  assessment = document.getElementById("assessmentID").value.trim()
   console.log("assessment chosen: ", assessment)
   if (subjID === '' || sessID === '' || assessment === '') {
     console.log ('subject and/or session is blank')
