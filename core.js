@@ -57,7 +57,7 @@ var cinderellaImgIdx = 0
 var cinderellaStartHasBeenClicked = false
 var cinderellaRecordingHasStarted = false
 var assessment = ''
-lowLag.init(); // init audio functions
+lowLag.init({'force':'audioTag'}); // init audio functions
 var userDataPath = path.join(app.getPath('userData'),'Data')
 makeSureUserDataFolderIsThere()
 var savePath
