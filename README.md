@@ -38,6 +38,8 @@ Participants view images from the cinderella storybook and then attempt to narra
 ### Credits
 [Icon](http://www.flaticon.com/authors/popcorns-arts)
 
+[ffmpeg](https://www.ffmpeg.org/)
+
 ### License
 [MIT](https://github.com/hanayik/Discourse-Assessments/blob/master/LICENSE)
 
