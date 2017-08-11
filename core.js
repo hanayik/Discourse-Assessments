@@ -212,7 +212,7 @@ function ff() {
   },
   this.datestamp = getDateStamp(),
   this.makeOutputFolder = function () {
-    outpath = path.join(savePath, 'PolarData', this.getAssessmentType(), getSubjID(), getSessID())
+    outpath = path.join(savePath, this.getAssessmentType(), getSubjID(), getSessID())
     if (!fs.existsSync(outpath)) {
       mkdirp.sync(outpath)
     }
