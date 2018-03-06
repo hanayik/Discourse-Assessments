@@ -1,6 +1,6 @@
 {
   "name": "Discourse",
-  "version": "1.2.14",
+  "version": "1.2.15",
   "description": "A set of common discourse measures used in assessing speech production after stroke ",
   "main": "app.js",
   "scripts": {
