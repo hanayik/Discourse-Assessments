@@ -234,19 +234,13 @@ function ff() {
       this.ffmpegPath +
       ' ' + this.shouldOverwrite +
       ' -thread_queue_size ' + this.threadQueSize +
-      ' -f ' + this.screenFormat +
-      ' -framerate ' + this.getFramerate().toString() +
-      ' -i ' + '"' + this.screenDeviceID + '"' +
-      ' -thread_queue_size ' + this.threadQueSize +
       ' -f ' + this.cameraFormat +
       ' -framerate ' + this.getFramerate().toString() +
       ' -video_size ' + this.videoSize +
       ' -i "' + this.cameraDeviceID + '":"' + this.audioDeviceID + '"' +
-      ' -profile:v baseline' +
       ' -c:v ' + this.videoCodec +
       ' -crf ' + this.recQuality +
       ' -preset ultrafast' +
-      ' -filter_complex ' + this.filter +
       ' -r ' + this.getFramerate().toString() +
       ' -movflags +faststart ' + '"' + this.outputFilename() + '"'
     ]
